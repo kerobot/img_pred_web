@@ -6,9 +6,9 @@ from .main import detect
 
 class PredView(TemplateView):
    def __init__(self):
-       self.params={'result_msg': '結果なし',
-                    'result_name': '画像なし',
-                    'result_img': '',
+       self.params={'result_list': [],
+                    'result_name': "",
+                    'result_img': "",
                     'form': ImageForm()}
 
    def get(self, req):
@@ -21,5 +21,5 @@ class PredView(TemplateView):
 
        image = form.cleaned_data['image']
        result = detect(image)
-       self.params['result_msg'], self.params['result_name'], self.params['result_img'] = result
+       self.params['result_list'], self.params['result_name'], self.params['result_img'] = result
        return render(req, 'idw/index.html', self.params)

@@ -1,22 +1,44 @@
 {% extends 'idw/base.html' %}
-
 {% block content %}
-    <div class="result">
-
-        <p>判定結果：{{ result_msg }}</p>
-        <p>判定画像：{{ result_name }}</p>
-
-        <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
-           {% csrf_token %}
-           {{ form.as_p }}
-           <button type="submit" class="save btn btn-default">判定する</button>
-        </form>
-
-        <div class="image">
-            {% if result_img != "" %}
-                <img src="data:image/png;base64,{{result_img}}"/>
-            {% endif %}
-        </div>
-
+<div style="padding:1em;">
+    <div class="page-header">
+        <h1>顔認識　<small>本田翼か佐倉綾音かを判定してみる</small></h1>
     </div>
+
+    <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class='form-group'>
+            <div class='col-sm-4'>{{form.as_p}}</div>
+            <div class='col-sm-8'><button type="submit" class="btn btn-primary">判定する</button></div>
+        </div>
+    </form>
+
+    <p class="message">判定画像</p>
+    <ul>
+        {% if result_name != "" %}
+            <li>{{ result_name }}</li>
+        {% else %}
+            <li>画像なし</li>
+        {% endif %}
+    </ul>
+
+    <p class="message">判定結果</p>
+    <ol>
+        {% if result_list %}
+            {% for result in result_list %}
+                <li>{{ result }}</li>
+            {% endfor %}
+        {% else %}
+            <li>結果なし</li>
+        {% endif %}
+    </ol>
+
+    <div class="image">
+        {% if result_img != "" %}
+            <img src="data:image/png;base64,{{result_img}}"/>
+        {% endif %}
+    </div>
+
+</div>
+
 {% endblock %}

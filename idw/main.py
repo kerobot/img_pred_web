@@ -7,8 +7,8 @@ import keras
 import numpy as np
 
 def detect(upload_image):
-    result_msg = ''
     result_name = upload_image.name
+    result_list = []
     result_img = ''
 
     cascade_file_path = settings.CASCADE_FILE_PATH
@@ -25,6 +25,7 @@ def detect(upload_image):
 
     # 顔が１つ以上検出できた場合
     if len(face_list) > 0:
+        count = 1
         for rect in face_list:
             # 認識した顔の座標とサイズ
             x, y, width, height = rect
@@ -40,26 +41,29 @@ def detect(upload_image):
             # 認識した顔を1枚の画像を含む配列に変換
             face_image = np.expand_dims(face_image, axis=0)
             # 認識した顔から名前を特定
-            name = detect_who(model, face_image)
+            name, result = detect_who(model, face_image)
             # 認識した顔に名前を描画
-            cv2.putText(image_rgb, name, (x, y+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (0,0,255) , 2)
+            cv2.putText(image_rgb, f"{count}. {name}", (x, y+height+20), cv2.FONT_HERSHEY_DUPLEX, 1, (0,0,255) , 2)
+            # 結果をリストに格納
+            result_list.append(result)
+            count = count + 1
 
     is_success, img_buffer = cv2.imencode(".png", image_rgb)
     if is_success:
         io_buffer = io.BytesIO(img_buffer)
         result_img = base64.b64encode(io_buffer.getvalue()).decode().replace("'", "")
 
-    return (result_msg, result_name, result_img)
+    return (result_list, result_name, result_img)
 
 def detect_who(model, face_image):
     # 予測
+    predicted = model.predict(face_image)
+    # 結果
     name = ""
-    result = model.predict(face_image)
-    # print(f"本田 翼　 の可能性:{result[0][0]*100:.3f}%")
-    # print(f"佐倉 綾音 の可能性:{result[0][1]*100:.3f}%")
-    name_number_label = np.argmax(result)
+    result = f"本田 翼 の可能性:{predicted[0][0]*100:.3f}% / 佐倉 綾音 の可能性:{predicted[0][1]*100:.3f}%"
+    name_number_label = np.argmax(predicted)
     if name_number_label == 0:
         name = "Honda Tsubasa"
     elif name_number_label == 1:
         name = "Sakura Ayane"
-    return name
+    return (name, result)
