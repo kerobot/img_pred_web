@@ -1,0 +1,22 @@
+{% extends 'idw/base.html' %}
+
+{% block content %}
+    <div class="result">
+
+        <p>判定結果：{{ result_msg }}</p>
+        <p>判定画像：{{ result_name }}</p>
+
+        <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
+           {% csrf_token %}
+           {{ form.as_p }}
+           <button type="submit" class="save btn btn-default">判定する</button>
+        </form>
+
+        <div class="image">
+            {% if result_img != "" %}
+                <img src="data:image/png;base64,{{result_img}}"/>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}
