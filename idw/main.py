@@ -5,6 +5,7 @@ from PIL import Image
 import cv2
 import keras
 import numpy as np
+from keras.backend import tensorflow_backend as backend
 
 def detect(upload_image):
     result_name = upload_image.name
@@ -53,6 +54,7 @@ def detect(upload_image):
         io_buffer = io.BytesIO(img_buffer)
         result_img = base64.b64encode(io_buffer.getvalue()).decode().replace("'", "")
 
+    backend.clear_session()
     return (result_list, result_name, result_img)
 
 def detect_who(model, face_image):
