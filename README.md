@@ -1,7 +1,5 @@
 # img_pred_web
 
-To determine someone from the image
-
 学習モデルをもとにアップロードした画像ファイルから特定の顔を認識します。
 
 事前に OpenCV の haarcascade_frontalface_default.xml を用意しておくこと。
@@ -52,6 +50,12 @@ To determine someone from the image
 ```powershell
 > copy .\.env.sample .\.env
 > code .\.env
+```
+
+Djangoのマイグレートを行います。
+
+```powershell
+> python manage.py migrate
 ```
 
 ## 実行
