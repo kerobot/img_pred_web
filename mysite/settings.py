@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'idw',
+    'pred',
 ]
 
 MIDDLEWARE = [
@@ -125,8 +125,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-dotenv_path = os.path.join(BASE_DIR, '.env')
-load_dotenv(dotenv_path)
+DOTENV_PATH = os.path.join(BASE_DIR, '.env')
+load_dotenv(DOTENV_PATH)
 
 CASCADE_FILE_PATH = os.environ.get("CASCADE_FILE_PATH")
 MODEL_FILE_PATH = os.environ.get("MODEL_FILE_PATH")

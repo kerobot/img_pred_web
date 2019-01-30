@@ -1,15 +1,15 @@
-{% extends 'idw/base.html' %}
+{% extends 'pred/base.html' %}
 {% block content %}
 <div style="padding:1em;">
     <div class="page-header">
-        <h1>kerasで深層学習　<small>本田翼か佐倉綾音かを判定してみる</small></h1>
+        <h1>kerasで深層学習　<small>本田翼か佐倉綾音のどちらかに分類してみる</small></h1>
     </div>
 
     <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <div class='form-group'>
             <div class='col-sm-4'>{{form.as_p}}</div>
-            <div class='col-sm-8'><button type="submit" class="btn btn-primary">判定する</button></div>
+            <div class='col-sm-8'><button type="submit" class="btn btn-primary">分類する</button></div>
         </div>
     </form>
 
