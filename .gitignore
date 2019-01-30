@@ -1,7 +1,11 @@
-venv
+*.pyc
+*~
 .vscode
 .cache
 .env
-__pycache__/
+__pycache__
+venv
+/static
 db.sqlite3
 model.h5
+.DS_Store
