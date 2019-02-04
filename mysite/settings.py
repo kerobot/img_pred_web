@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -122,11 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# 分類器
+CASCADE_FILE_PATH = os.path.join(BASE_DIR, 'haarcascade_frontalface_default.xml')
 
-DOTENV_PATH = os.path.join(BASE_DIR, '.env')
-load_dotenv(DOTENV_PATH)
-
-CASCADE_FILE_PATH = os.environ.get("CASCADE_FILE_PATH")
-MODEL_FILE_PATH = os.environ.get("MODEL_FILE_PATH")
+# モデルファイル
+MODEL_FILE_PATH = os.path.join(BASE_DIR, 'model.h5')

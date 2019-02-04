@@ -42,16 +42,6 @@
 > pip install -r requirements.txt
 ```
 
-環境変数を設定します。
-
-> CASCADE_FILE_PATH を設定  
-> MODEL_FILE_PATH を設定
-
-```powershell
-> copy .\.env.sample .\.env
-> code .\.env
-```
-
 Djangoのマイグレートを行います。
 
 ```powershell
@@ -60,7 +50,7 @@ Djangoのマイグレートを行います。
 
 ## 実行
 
-ルートにモデルファイル（例：model.h5）を配置し、Webアプリを起動します。
+ルートにモデルファイル（例：model.h5）とカスケードファイル（例：haarcascade_frontalface_default.xml）を配置し、mysite/settings.pyにパスを設定してWebアプリを起動します。
 
 > Webアプリの起動
 
